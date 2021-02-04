@@ -30,28 +30,22 @@ public class NBody {
 
         StdDraw.enableDoubleBuffering();
         StdDraw.setScale(-radius, radius);
-//        StdDraw.clear();
-//        StdDraw.picture(0, 0, "images/starfield.jpg");
-//
-//        for(Planet p:ps)    {
-//            p.draw();
-//        }
 
-        for(int t=0;t<T;t+=dt)   {
+        for (int t = 0; t < T; t += dt) {
             Double[] xForce = new Double[ps.length];
             Double[] yForce = new Double[ps.length];
 
-            for(int i=0;i<ps.length;i++)    {
-                xForce[i]=ps[i].calcNetForceExertedByX(ps);
-                yForce[i]=ps[i].calcNetForceExertedByY(ps);
+            for (int i = 0; i < ps.length; i++) {
+                xForce[i] = ps[i].calcNetForceExertedByX(ps);
+                yForce[i] = ps[i].calcNetForceExertedByY(ps);
             }
 
             StdDraw.clear();
-            for(int i=0;i<ps.length;i++)    {
+            for (int i = 0; i < ps.length; i++) {
                 ps[i].update(dt, xForce[i], yForce[i]);
             }
             StdDraw.picture(0, 0, "images/starfield.jpg");
-            for(int i=0;i<ps.length;i++)    {
+            for (int i = 0; i < ps.length; i++) {
                 ps[i].draw();
             }
             StdDraw.show();
