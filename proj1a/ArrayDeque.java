@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class ArrayDeque<T> {
-    T[] array;
+    private T[] array;
     private final static double FACTOR = 0.25;
     private int size;
     private int head;
@@ -28,7 +28,7 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        if(size+1==array.length)    {
+        if (size + 1 == array.length) {
             increaseSize();
         }
         head = (head - 1) % array.length;
@@ -58,16 +58,16 @@ public class ArrayDeque<T> {
             return;
         }
         int i = head;
-        while(i!=tail)  {
+        while (i != tail) {
             System.out.print(array[i]);
-            if(i%array.length!=(tail-1)%array.length)   {
+            if (i % array.length != (tail - 1) % array.length) {
                 System.out.print(" ");
             }
-            i = (i+1)%array.length;
+            i = (i + 1) % array.length;
         }
     }
 
-    private void decreaseSize()  {
+    private void decreaseSize() {
         if (array.length > 16 && (size - 1) / array.length < FACTOR) {
             int length = (int) ((size - 1) * FACTOR);
             T[] a = (T[]) new Objects[length];
@@ -79,12 +79,12 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        if(array.length > 16 && (size - 1) / array.length < FACTOR)  {
+        if (array.length > 16 && (size - 1) / array.length < FACTOR) {
             decreaseSize();
         }
         T item = array[head];
-        head=(head+1)%array.length;
-        size-=1;
+        head = (head + 1) % array.length;
+        size -= 1;
         return item;
     }
 
@@ -92,19 +92,19 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        if(array.length > 16 && (size - 1) / array.length < FACTOR)  {
+        if (array.length > 16 && (size - 1) / array.length < FACTOR) {
             decreaseSize();
         }
-        tail=(tail-1)%array.length;
-        size-=1;
+        tail = (tail - 1) % array.length;
+        size -= 1;
         return array[tail];
     }
 
     public T get(int index) {
-        if(index>=size) {
+        if (index >= size) {
             return null;
         }
-        return array[(head+index)%array.length];
+        return array[(head + index) % array.length];
     }
 
 
