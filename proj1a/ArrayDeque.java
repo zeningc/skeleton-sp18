@@ -1,9 +1,7 @@
-import java.util.LinkedList;
-import java.util.Objects;
 
 public class ArrayDeque<T> {
     private T[] array;
-    private final static double FACTOR = 0.25;
+    private static final double FACTOR = 0.25;
     private int size;
     private int head;
     private int tail;
@@ -22,7 +20,7 @@ public class ArrayDeque<T> {
         } else {
             length = (int) ((size + 1) / FACTOR);
         }
-        T[] a = (T[]) new Objects[length];
+        T[] a = (T[]) new Object[length];
         System.arraycopy(array, 0, a, 0, size);
         array = a;
     }
@@ -70,7 +68,7 @@ public class ArrayDeque<T> {
     private void decreaseSize() {
         if (array.length > 16 && (size - 1) / array.length < FACTOR) {
             int length = (int) ((size - 1) * FACTOR);
-            T[] a = (T[]) new Objects[length];
+            T[] a = (T[]) new Object[length];
             System.arraycopy(array, 0, a, 0, size);
         }
     }

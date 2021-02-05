@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
     private class LinkedList {
-        public LinkedList next;
-        public LinkedList prev;
-        public T item;
+        private LinkedList next;
+        private LinkedList prev;
+        private T item;
 
         public LinkedList(T i, LinkedList n, LinkedList p) {
             item = i;
@@ -23,14 +23,14 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         LinkedList p = new LinkedList(item, head.next, head);
         head.next = p;
-        p.next.prev=p;
+        p.next.prev = p;
         size += 1;
     }
 
     public void addLast(T item) {
         LinkedList p = new LinkedList(item, head, head.prev);
         head.prev = p;
-        p.prev.next=p;
+        p.prev.next = p;
         size += 1;
     }
 
@@ -62,9 +62,7 @@ public class LinkedListDeque<T> {
         }
         LinkedList p = head.next;
         head.next = p.next;
-        if (size == 1) {
-            head.prev = head;
-        }
+        p.next.prev=head;
         size -= 1;
         return p.item;
     }
@@ -75,9 +73,7 @@ public class LinkedListDeque<T> {
         }
         LinkedList p = head.prev;
         head.prev = p.prev;
-        if (size == 1) {
-            head.next = head;
-        }
+        p.prev.next=head;
         size -= 1;
         return p.item;
     }
