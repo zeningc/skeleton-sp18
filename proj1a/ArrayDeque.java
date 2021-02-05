@@ -18,15 +18,22 @@ public class ArrayDeque<T> {
         if (array.length < 16) {
             length = 16;
         } else {
-            length = (int) ((size + 1) / FACTOR);
+            length = (int) ((double) size / FACTOR);
         }
         T[] a = (T[]) new Object[length];
-        System.arraycopy(array, 0, a, 0, size);
+        if (head < tail) {
+            System.arraycopy(array, head, a, 0, array.length);
+        } else {
+            System.arraycopy(array, head, a, 0, array.length - head);
+            System.arraycopy(array, 0, a, array.length - head, tail);
+        }
+        head = 0;
+        tail = size;
         array = a;
     }
 
     public void addFirst(T item) {
-        if (size + 1 == array.length) {
+        if (size == array.length) {
             increaseSize();
         }
         head = (head + array.length - 1) % array.length;
@@ -35,7 +42,7 @@ public class ArrayDeque<T> {
     }
 
     public void addLast(T item) {
-        if (size + 1 == array.length) {
+        if (size == array.length) {
             increaseSize();
         }
         array[tail] = item;
@@ -66,19 +73,18 @@ public class ArrayDeque<T> {
     }
 
     private void decreaseSize() {
-        if (array.length > 16 && (size - 1) / array.length < FACTOR) {
-            int length = (int) ((size - 1) / FACTOR);
+        if (array.length > 16 && (double) size / array.length < FACTOR) {
+            int length = (int) ((double) array.length * FACTOR);
             T[] a = (T[]) new Object[length];
-            if(head<tail)   {
+            if (head < tail) {
                 System.arraycopy(array, head, a, 0, size);
+            } else {
+                System.arraycopy(array, head, a, 0, array.length - head);
+                System.arraycopy(array, 0, a, array.length - head, tail);
             }
-            else    {
-                System.arraycopy(array, head, a, 0, array.length-head);
-                System.arraycopy(array, 0, a, array.length-head, tail);
-            }
-            head=0;
-            tail=size;
-            array=a;
+            head = 0;
+            tail = size;
+            array = a;
 
         }
     }
@@ -87,12 +93,12 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        if (array.length > 16 && (size - 1) / array.length < FACTOR) {
-            decreaseSize();
-        }
         T item = array[head];
         head = (head + 1) % array.length;
         size -= 1;
+        if (array.length > 16 && (double) size / array.length < FACTOR) {
+            decreaseSize();
+        }
         return item;
     }
 
@@ -100,11 +106,11 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        if (array.length > 16 && (size - 1) / array.length < FACTOR) {
+        tail = (tail + array.length - 1) % array.length;
+        size -= 1;
+        if (array.length > 16 && (double) size / array.length < FACTOR) {
             decreaseSize();
         }
-        tail = (tail - 1) % array.length;
-        size -= 1;
         return array[tail];
     }
 
