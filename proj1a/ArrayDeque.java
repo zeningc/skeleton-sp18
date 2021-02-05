@@ -107,11 +107,12 @@ public class ArrayDeque<T> {
             return null;
         }
         tail = (tail + array.length - 1) % array.length;
+        T item = array[tail];
         size -= 1;
         if (array.length > 16 && (double) size / array.length < FACTOR) {
             decreaseSize();
         }
-        return array[(tail + array.length - 1) % array.length];
+        return item;
     }
 
     public T get(int index) {
