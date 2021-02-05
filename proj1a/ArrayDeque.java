@@ -67,9 +67,19 @@ public class ArrayDeque<T> {
 
     private void decreaseSize() {
         if (array.length > 16 && (size - 1) / array.length < FACTOR) {
-            int length = (int) ((size - 1) * FACTOR);
+            int length = (int) ((size - 1) / FACTOR);
             T[] a = (T[]) new Object[length];
-            System.arraycopy(array, 0, a, 0, size);
+            if(head<tail)   {
+                System.arraycopy(array, head, a, 0, size);
+            }
+            else    {
+                System.arraycopy(array, head, a, 0, array.length-head);
+                System.arraycopy(array, 0, a, array.length-head, tail);
+            }
+            head=0;
+            tail=size;
+            array=a;
+
         }
     }
 
