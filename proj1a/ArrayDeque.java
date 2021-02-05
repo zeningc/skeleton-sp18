@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
         if (size + 1 == array.length) {
             increaseSize();
         }
-        head = (head - 1) % array.length;
+        head = (head + array.length - 1) % array.length;
         array[head] = item;
         size += 1;
     }
