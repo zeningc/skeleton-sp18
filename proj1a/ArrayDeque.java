@@ -111,7 +111,7 @@ public class ArrayDeque<T> {
         if (array.length > 16 && (double) size / array.length < FACTOR) {
             decreaseSize();
         }
-        return array[tail];
+        return array[(tail + array.length - 1) % array.length];
     }
 
     public T get(int index) {
