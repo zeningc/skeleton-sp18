@@ -11,11 +11,11 @@ public class IntList {
     /**
      * First element of list.
      */
-    private int first;
+    public int first;
     /**
      * Remaining elements of list.
      */
-    private IntList rest;
+    public IntList rest;
 
     /**
      * A List with first FIRST0 and rest REST0.
@@ -237,24 +237,6 @@ public class IntList {
         }
         out.format(")");
         return out.toString();
-    }
-
-    private static IntList reverseHelper(IntList L, IntList nextL) {
-        if (nextL.rest == null) {
-            nextL.rest = L;
-            return nextL;
-        }
-        IntList head = reverseHelper(nextL, nextL.rest);
-        nextL.rest = L;
-        L.rest = null;
-        return head;
-    }
-
-    public static IntList reverse(IntList L) {
-        if (L == null || L.rest == null) {
-            return L;
-        }
-        return reverseHelper(L, L.rest);
     }
 }
 
