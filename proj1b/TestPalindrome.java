@@ -19,7 +19,7 @@ public class TestPalindrome {
 
     @Test
     public void testIsPalindrome() {
-        assertTrue(palindrome.isPalindrome(null));
+
         assertTrue(palindrome.isPalindrome(""));
         assertTrue(palindrome.isPalindrome("a"));
         assertFalse(palindrome.isPalindrome("aA"));
@@ -30,6 +30,19 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("hellalleh"));
         assertTrue(palindrome.isPalindrome("123321"));
         assertFalse(palindrome.isPalindrome("123jjsadhfa"));
+
+        OffByOne offByOne = new OffByOne();
+
+        assertTrue(palindrome.isPalindrome("", offByOne));
+        assertTrue(palindrome.isPalindrome("a", offByOne));
+        assertFalse(palindrome.isPalindrome("aA", offByOne));
+        assertFalse(palindrome.isPalindrome("persiflage", offByOne));
+        assertTrue(palindrome.isPalindrome("hell1kmdi", offByOne));
+        assertTrue(palindrome.isPalindrome("hellkmdi", offByOne));
+        assertFalse(palindrome.isPalindrome("hellKmdI", offByOne));
+        assertTrue(palindrome.isPalindrome("hellakmdi", offByOne));
+        assertTrue(palindrome.isPalindrome("123432", offByOne));
+        assertFalse(palindrome.isPalindrome("123jjsadhfa", offByOne));
     }
 
 }
