@@ -14,15 +14,25 @@ public class Palindrome {
         if (d.size() < 2) {
             return true;
         }
-        if ((c != null && c.equalChars(d.removeFirst(), d.removeLast())) || (c == null && d.removeFirst() == d.removeLast())) {
+        if (c != null && c.equalChars(d.removeFirst(), d.removeLast())) {
             return isPalindromeHelper(d, c);
+        }
+        return false;
+    }
+
+    private boolean isPalindromeHelper(Deque<Character> d) {
+        if (d.size() < 2) {
+            return true;
+        }
+        if (d.removeFirst() == d.removeLast()) {
+            return isPalindromeHelper(d);
         }
         return false;
     }
 
     public boolean isPalindrome(String word) {
         Deque<Character> d = wordToDeque(word);
-        return d == null || isPalindromeHelper(d, null);
+        return d == null || isPalindromeHelper(d);
     }
 
     public boolean isPalindrome(String word, CharacterComparator c) {
