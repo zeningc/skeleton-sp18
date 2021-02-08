@@ -10,34 +10,24 @@ public class Palindrome {
         return d;
     }
 
-    protected boolean isPalindromeHelper(Deque<Character> d) {
+    private boolean isPalindromeHelper(Deque<Character> d, CharacterComparator c) {
         if (d.size() < 2) {
             return true;
         }
-        if (d.removeFirst() == d.removeLast()) {
-            return isPalindromeHelper(d);
+        if ((c != null && c.equalChars(d.removeFirst(), d.removeLast())) || (c == null && d.removeFirst() == d.removeLast())) {
+            return isPalindromeHelper(d, c);
         }
         return false;
     }
 
     public boolean isPalindrome(String word) {
         Deque<Character> d = wordToDeque(word);
-        return d == null ? true : isPalindromeHelper(d);
+        return d == null || isPalindromeHelper(d, null);
     }
 
-//    public boolean isPalindrome(String word) {
-//        if (word.length() < 2) {
-//            return true;
-//        }
-//        Deque<Character> d = wordToDeque(word);
-//        while (d.size() != 0 && d.size() != 1) {
-//            Character c1 = d.removeFirst();
-//            Character c2 = d.removeLast();
-//            if (c1 != c2) {
-//                return false;
-//            }
-//        }
-//
-//        return true;
-//    }
+    public boolean isPalindrome(String word, CharacterComparator c) {
+        Deque<Character> d = wordToDeque(word);
+        return d == null || isPalindromeHelper(d, c);
+    }
+
 }

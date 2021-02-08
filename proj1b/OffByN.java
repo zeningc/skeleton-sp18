@@ -1,4 +1,4 @@
-public class OffByN extends Palindrome implements CharacterComparator {
+public class OffByN implements CharacterComparator {
 
     private int N;
 
@@ -11,14 +11,4 @@ public class OffByN extends Palindrome implements CharacterComparator {
         return Character.isLetter(x) && Character.isLetter(y) && Math.abs(x - y) == N;
     }
 
-    @Override
-    protected boolean isPalindromeHelper(Deque<Character> d) {
-        if (d.size() < 2) {
-            return true;
-        }
-        if (equalChars(d.removeFirst(), d.removeLast())) {
-            return isPalindromeHelper(d);
-        }
-        return false;
-    }
 }
