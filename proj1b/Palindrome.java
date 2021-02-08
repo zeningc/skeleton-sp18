@@ -14,7 +14,7 @@ public class Palindrome {
         if (d.size() < 2) {
             return true;
         }
-        if (c != null && c.equalChars(d.removeFirst(), d.removeLast())) {
+        if (c.equalChars(d.removeFirst(), d.removeLast())) {
             return isPalindromeHelper(d, c);
         }
         return false;
