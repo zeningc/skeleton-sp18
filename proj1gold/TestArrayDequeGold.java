@@ -32,8 +32,10 @@ public class TestArrayDequeGold {
                     if (ads.size() > 0 && sadSize > 0) {
                         Integer a = sad.removeFirst();
                         Integer b = ads.removeFirst();
-                        msg += "removeFirst(): " + a + "\n";
+                        msg += "removeFirst(): " + a;
+                        ;
                         assertEquals(msg, b, a);
+                        msg += "\n";
                         sadSize--;
                     }
                     break;
@@ -41,8 +43,10 @@ public class TestArrayDequeGold {
                     if (ads.size() > 0 && sadSize > 0) {
                         Integer a = sad.removeLast();
                         Integer b = ads.removeLast();
-                        msg += "removeLast(): " + a + "\n";
+                        msg += "removeLast(): " + a;
+                        ;
                         assertEquals(msg, b, a);
+                        msg += "\n";
                         sadSize--;
                     }
                     break;
