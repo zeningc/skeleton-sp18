@@ -1,49 +1,67 @@
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TestArrayDequeGold {
 
-    @Test(timeout = 1000)
-    public void testAddRemove() {
+    private static final int nCall = 1000; // How many to call methods randomly
+    private static String message = ""; // Store failure sequence
+
+    /**
+     * Given uniformly distributed random double between 0 and 1,
+     * randomly adds Integer to deque.
+     */
+    private void randomAdd(double random, Integer i, StudentArrayDeque<Integer> sad, ArrayDequeSolution<Integer> ads) {
+        if (random < 0.5) {
+            sad.addFirst(i);
+            ads.addFirst(i);
+            message += "\naddFirst(" + i + ")";
+        } else {
+            sad.addLast(i);
+            ads.addLast(i);
+            message += "\naddLast(" + i + ")";
+        }
+    }
+
+    /**
+     * Given uniformly distributed random double between 0 and 1,
+     * randomly adds Integer to deque.
+     */
+    private void randomRemove(double random, Integer i, StudentArrayDeque<Integer> sad, ArrayDequeSolution<Integer> ads) {
+        Integer expected;
+        Integer actual;
+        if (random < 0.5) {
+            expected = ads.removeFirst();
+            actual = sad.removeFirst();
+            message += "\nremoveFirst()";
+        } else {
+            expected = ads.removeLast();
+            actual = sad.removeLast();
+            message += "\nremoveLast()";
+        }
+        assertEquals(message, expected, actual);
+    }
+
+    @Test
+    public void testRandomized() {
         StudentArrayDeque<Integer> sad = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> ads = new ArrayDequeSolution<>();
-        String msg = new String();
-        int random;
-        Integer insertNum;
-        while (true) {
-            insertNum = StdRandom.uniform(1000);
-            random = StdRandom.uniform(4);
-            switch (random) {
-                case 0:
-                    sad.addFirst(insertNum);
-                    ads.addFirst(insertNum);
-                    msg += "\naddFirst(" + insertNum + ")";
-                    break;
-                case 1:
-                    sad.addLast(insertNum);
-                    ads.addLast(insertNum);
-                    msg += "\naddLast(" + insertNum + ")";
-                    break;
-                case 2:
-                    if (ads.size() > 0 && !sad.isEmpty()) {
-                        Integer a = sad.removeFirst();
-                        Integer b = ads.removeFirst();
-                        msg += "\nremoveFirst(): " + a;
-                        assertEquals(msg, b, a);
-                    }
-                    break;
-                case 3:
-                    if (ads.size() > 0 && !sad.isEmpty()) {
-                        Integer a = sad.removeLast();
-                        Integer b = ads.removeLast();
-                        msg += "\nremoveLast(): " + a;
-                        assertEquals(msg, b, a);
-                    }
-                    break;
-                default:
+
+        for (Integer i = 0; i < nCall; i += 1) {
+            if (sad.isEmpty()) {
+                double random = StdRandom.uniform();
+                randomAdd(random, i, sad, ads);
+            } else {
+                double random1 = StdRandom.uniform();
+                double random2 = StdRandom.uniform();
+                if (random1 < 0.5) {
+                    randomAdd(random2, i, sad, ads);
+                } else {
+                    randomRemove(random2, i, sad, ads);
+                }
             }
         }
+
     }
 
 }
