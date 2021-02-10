@@ -11,7 +11,6 @@ public class TestArrayDequeGold {
         String msg = new String();
         int random;
         Integer insertNum;
-        int sadSize = 0;
         while (true) {
             insertNum = StdRandom.uniform(1000);
             random = StdRandom.uniform(4);
@@ -19,39 +18,30 @@ public class TestArrayDequeGold {
                 case 0:
                     sad.addFirst(insertNum);
                     ads.addFirst(insertNum);
-                    sadSize++;
-                    msg += "addFirst(" + insertNum + ")\n";
+                    msg += "\naddFirst(" + insertNum + ")";
                     break;
                 case 1:
                     sad.addLast(insertNum);
                     ads.addLast(insertNum);
-                    sadSize++;
-                    msg += "addLast(" + insertNum + ")\n";
+                    msg += "\naddLast(" + insertNum + ")";
                     break;
                 case 2:
-                    if (ads.size() > 0 && sadSize > 0) {
+                    if (ads.size() > 0 && !sad.isEmpty()) {
                         Integer a = sad.removeFirst();
                         Integer b = ads.removeFirst();
-                        msg += "removeFirst(): " + a;
-                        ;
+                        msg += "\nremoveFirst(): " + a;
                         assertEquals(msg, b, a);
-                        msg += "\n";
-                        sadSize--;
                     }
                     break;
                 case 3:
-                    if (ads.size() > 0 && sadSize > 0) {
+                    if (ads.size() > 0 && !sad.isEmpty()) {
                         Integer a = sad.removeLast();
                         Integer b = ads.removeLast();
-                        msg += "removeLast(): " + a;
-                        ;
+                        msg += "\nremoveLast(): " + a;
                         assertEquals(msg, b, a);
-                        msg += "\n";
-                        sadSize--;
                     }
                     break;
                 default:
-                    break;
             }
         }
     }
