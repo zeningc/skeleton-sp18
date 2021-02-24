@@ -1,8 +1,5 @@
-// TODO: Make sure to make this class a part of the synthesizer package
 //package <package name>;
 package synthesizer;
-
-import synthesizer.BoundedQueue;
 
 import java.util.HashSet;
 import java.util.Set;
